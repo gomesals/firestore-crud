@@ -1,6 +1,17 @@
 <template lang="pug">
   div
-    pre {{ recipes }}
+    v-card(flat)
+      v-card-title.primary.white--text
+        .headline.py-3.px-2 Receitas
+      v-card-text
+        v-list
+          v-list-tile(
+            v-for="(item, index) in recipes"
+            :key="index"
+            @click="open(item.id)"
+          )
+            v-list-tile-content
+              v-list-tile-title {{ item.title }}
 </template>
 
 <script>
@@ -9,11 +20,16 @@ export default {
   data: () => ({
     recipes: []
   }),
-  firestore() {
-    return {
-      recipes: db.collection('recipes').orderBy('createdAt')
+  firestore: () => ({
+    recipes: db.collection('recipes')
+  }),
+  methods: {
+    open(id) {
+      this.$router.push({
+        name: 'receita-id',
+        params: { id }
+      })
     }
   }
 }
 </script>
-
