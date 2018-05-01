@@ -1,9 +1,6 @@
-<template>
-  <div>
-    <pre>
-      {{ recipes }}
-    </pre>
-  </div>
+<template lang="pug">
+  div
+    pre {{ recipes }}
 </template>
 
 <script>
