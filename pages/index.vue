@@ -8,10 +8,14 @@
           v-list-tile(
             v-for="(item, index) in recipes"
             :key="index"
-            @click="open(item.id)"
+            avatar
           )
             v-list-tile-content
               v-list-tile-title {{ item.title }}
+            v-list-tile-action(@click="open(item.id)")
+              v-icon pageview
+            v-list-tile-action(@click="remove(item.id)")
+              v-icon delete
     v-btn(
         slot="activator"
          color="primary lighten-1"
@@ -41,6 +45,12 @@ export default {
         name: 'receita-id-view',
         params: { id }
       })
+    },
+    remove(id) {
+      db
+        .collection('recipes')
+        .doc(id)
+        .delete()
     }
   }
 }
